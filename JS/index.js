@@ -9,9 +9,23 @@ const bodyParser = require ('body-parser');
 const app = express();
 const PORT = 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
+
+ app.get("/api/quotes", (req, res) => {
+    res.json(quotes);
+  });
+
+  app.get("/api/quotes/:id", (req, res) => {
+    const user = quotes.find((u) => u.id == req.params.id);
+    if (user) res.json(user);
+    else (next);
+  });
+
 
 
 app.get('/', (req, res) => {
+    
     const htmlContent = `
         <!DOCTYPE html>
         <html lang="en">
@@ -19,7 +33,7 @@ app.get('/', (req, res) => {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Quote Generator</title>
-            <link rel="stylesheet" href="./index.css">
+            <link rel="stylesheet" href="./CSS/index.css">
         </head>
         <body>
             <h1>Quote Generator</h1>
@@ -37,8 +51,8 @@ app.get('/', (req, res) => {
           
             <button id="generateButton">Generate Random Quote</button>
 
-            <script src="./quotes.js"></script>
-            <script src="./index.js"></script>
+            <script src="./JS/index.js"> </script>
+            <script src= "./JS/quotes.js"></script>
             <script src="./JS/quotefunction.js"></script>
               
               </body>
@@ -51,15 +65,13 @@ app.get('/', (req, res) => {
  });
    
 
-
-
-app.use(bodyParser.json());
+ app.use(express.static('CSS'));
 
 
 
 app.get('/quotes', (req, res) => {
-    res.json(quotes);
-    //res.render(quotes);
+    //res.json(quotes);
+    res.render(quotes);
 });
 
 app.post('/quotes/add', (req, res) => {
