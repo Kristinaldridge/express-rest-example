@@ -1,0 +1,76 @@
+/* Reset default margin and padding */
+body, h1, p, input, button {
+  margin: 0;
+  padding: 0;
+}
+
+/* Basic typography and background */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#quoteList {
+  margin-top: 20px;
+}
+
+.quote-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.quote-item p {
+  margin-bottom: 10px;
+}
+
+form {
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: calc(100% - 20px); /* Adjusted width for padding */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
+
+
+
+

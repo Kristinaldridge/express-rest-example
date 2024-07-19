@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bible Verse</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Bible Verse Reminder</h1>
+
+  <div id="quoteList">
+    <% quotes.forEach((quote, index) => { %>
+      <div class="quote-item">
+        <p><strong>Quote <%= index + 1 %>:</strong> <%= quote.text %></p>
+       
+        <form id="editForm_<%= quote.id %>" onsubmit="submitForm('<%= quote.id %>'); return false;">
+          <input type="text" id="editedQuote_<%= quote.id %>" name="editedQuote" value="<%= quote.text %>">
+          <button type="submit">Save</button>
+        </form>
+  
+  </div>
+       
+        <form action="/delete/<%= quote.id %>" method="POST">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    <% }); %>
+  </div>
+
+  <form action="/add" method="POST">
+    <label for="newQuote">Enter Quote:</label>
+    <input type="text" id="newQuote" name="newQuote" required>
+    <button type="submit">Add Quote</button>
+  </form>
+
+<script>
+ function submitForm(quoteId) {
+      const form = document.getElementById(`editForm_${quoteId}`);
+      const editedQuote = document.getElementById(`editedQuote_${quoteId}`).value;
+
+      fetch(`/edit/${quoteId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          editedQuote: editedQuote
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Quote updated successfully');
+          location.reload(); // Reload the page after successful update
+        } else {
+          throw new Error('Failed to update quote');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert(error.message); // Display the error message
+      });
+    }
+</script>
+</body>
+</html>
